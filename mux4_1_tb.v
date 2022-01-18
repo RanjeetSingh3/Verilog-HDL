@@ -1,55 +1,27 @@
-/********************************************************************************************
-
-Copyright 2018-2019 - Maven Silicon Softech Pvt Ltd. All Rights Reserved.
-
-This source code is an unpublished work belongs to Maven Silicon Softech Pvt Ltd.
-It is considered a trade secret and is not to be divulged or used by parties who
-have not received written authorization from Maven Silicon Softech Pvt Ltd.
-
-Maven Silicon Softech Pvt Ltd
-Bangalore - 560076
-
-Webpage: www.maven-silicon.com
-
-Filename:	mux4_1_tb
-
-Description:	Testbench for 4:1 Mux
-
-Date:		01/05/2018
-
-Author:		Maven Silicon
-
-Email:		online@maven-silicon.com
-
-
-Version:	1.0
-
-*********************************************************************************************/
+//Description:	Testbench for 4:1 Mux
 
 module mux4_1_tb();
 
-// Declaration of the variables required for testbench
+// Declaration of required variables  
   reg [1:0]sel;
   reg [3:0]a;
   wire y ;
 
-// Declaration of internal variables required for testbench
+// Declaration of  required internal variables
   integer i,j;
 
-// Step 1. Instantiate the Design
+//Instantiation of the Design
   mux4_1 m1(a,sel,y);
 
-
-// Step 2. Define body for the initialize task to initialize inputs of DUT to 0
   task initialize;
   begin
 		a=0;
-        sel=0;// body here
+        sel=0;
   end
   endtask
 
 
-// Step 3. Declare tasks with arguments for driving stimulus to DUT.
+//Declaration of tasks for driving stimulus to DUT.
   task select(input [1:0]s);
   begin
     sel=s;
@@ -63,8 +35,6 @@ module mux4_1_tb();
   endtask
 
 
-
-// Step 4. Call the tasks from procedural block
   initial
     begin
      initialize;
@@ -80,12 +50,10 @@ module mux4_1_tb();
       end
      end
 
-// Step 5. Use $monitor task in a parallel initial block  to display inputs and outputs.
    initial
    $monitor("a[3:0]=%b  sel=%b  y=%d",a,sel,y);
 
-// Step 6. Use $finish task to finish the simulation in a parallel initial block with appropriate delay.
-   initial
+  initial
    #800 $finish;
 
 endmodule
