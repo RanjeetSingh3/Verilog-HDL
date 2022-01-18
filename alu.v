@@ -1,36 +1,6 @@
-/********************************************************************************************
+//Description:	Arithmetic logic unit executing 16 operations
 
-Copyright 2018-2019 - Maven Silicon Softech Pvt Ltd. All Rights Reserved.
-
-This source code is an unpublished work belongs to Maven Silicon Softech Pvt Ltd.
-It is considered a trade secret and is not to be divulged or used by parties who
-have not received written authorization from Maven Silicon Softech Pvt Ltd.
-
-Maven Silicon Softech Pvt Ltd
-Bangalore - 560076
-
-Webpage: www.maven-silicon.com
-
-Filename:	alu.v
-
-Description:	Arithmetic logic unit executing 16 operations
-
-Date:		01/05/2018
-
-Author:		Maven Silicon
-
-Email:		online@maven-silicon.com
-
-
-Version:	1.0
-
-*********************************************************************************************/
-
-module alu(a,
-           b,
-           command,
-           oe,
-           y);
+module alu(a,b,command,oe,y);
 
   parameter ADD  = 4'b0000, // Add two 4 bit numbers a and b.
             INC  = 4'b0001, // Increment a by 1.
@@ -49,22 +19,18 @@ module alu(a,
             XNOR = 4'b1110, // Logical EXNOR
             BUF  = 4'b1111; // Buffer
 
-  input [7:0] a,
-              b;
+           input [7:0] a,b;
   input [3:0] command;
   input oe;
 
   output [15:0] y;
   reg    [15:0] out;
-
-
-  // Step 1. Write down the functionality of ALU based on commands given above.
-  //         *Use arithmetic and logical operators & Switch Case Statement of Verilog
+           
   always@(command)
   begin
     case (command)
 
-    //--------- write the functionality here -------
+    //functionality 
             ADD : out=a+b;// Add two 4 bit numbers a and b.
             INC : out=a+1;// Increment a by 1.
             SUB : out=b-a; // Subtracts b from a.
@@ -75,7 +41,7 @@ module alu(a,
             SHR : out=a>>1'b1;// Shift a to right by 1 bit.
             AND : out=a&b; // Logical AND
             OR  : out=a|b;// Logical OR
-            INV : out=~a;// Compement
+            INV : out=~a;// Complement
             NAND : out=~(a&b);// Logical NAND
             NOR : out=~(a|b);// Logical NOR
             XOR : out=a^b;// Logical EXOR
@@ -85,8 +51,6 @@ module alu(a,
 
     endcase
   end
-
-// Step 2. Understand the tri-state output logic
   assign y = (oe) ? out : 16'hzzzz;
 
 endmodule
