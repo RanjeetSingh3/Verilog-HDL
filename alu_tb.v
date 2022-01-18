@@ -1,75 +1,46 @@
-/********************************************************************************************
-
-Copyright 2018-2019 - Maven Silicon Softech Pvt Ltd. All Rights Reserved.
-
-This source code is an unpublished work belongs to Maven Silicon Softech Pvt Ltd.
-It is considered a trade secret and is not to be divulged or used by parties who
-have not received written authorization from Maven Silicon Softech Pvt Ltd.
-
-Maven Silicon Softech Pvt Ltd
-Bangalore - 560076
-
-Webpage: www.maven-silicon.com
-
-Filename:	alu_tb.v
-
-Description:	Testbench for Arithmetic logic unit
-
-Date:		01/05/2018
-
-Author:		Maven Silicon
-
-Email:		online@maven-silicon.com
-
-
-Version:	1.0
-
-*********************************************************************************************/
+//Description:	Testbench for Arithmetic logic unit
+  
 module alu_tb();
 
-  reg [7:0]  a,
-             b;
+  reg [7:0]  a,b;
   reg [3:0]  command;
   reg enable;
   wire [15:0] y;
 
   integer m,n,o;
 
-  parameter ADD  = 4'b0000, // 0  Add two 4 bit numbers a and b.
-            INC  = 4'b0001, // 1  Increment a by 1.
-            SUB  = 4'b0010, // 2  Subtracts b from a.
-            DEC  = 4'b0011, // 3  Decrement a by 1.
-            MUL  = 4'b0100, // 4  Multiply 4 bit numbers a and b.
-            DIV  = 4'b0101, // 5  Divide a by b.
-            SHR  = 4'b0110, // 6  Shift a to left side by 1 bit.
-            SHL  = 4'b0111, // 7  Shift a to right by 1 bit.
-            AND  = 4'b1000, // 8  Logical AND
-            OR   = 4'b1001, // 9  Logical OR
-            INV  = 4'b1010, // 10 Compement
-            NAND = 4'b1011, // 11 Logical NAND
-            NOR  = 4'b1100, // 12 Logical NOR
-            XOR  = 4'b1101, // 13 Logical EXOR
-            XNOR = 4'b1110, // 14 Logical EXNOR
-            BUF  = 4'b1111; // 15 Buffer
+  parameter ADD  = 4'b0000, //   Add two 4 bit numbers a and b.
+            INC  = 4'b0001, //   Increment a by 1.
+            SUB  = 4'b0010, //   Subtracts b from a.
+            DEC  = 4'b0011, //   Decrement a by 1.
+            MUL  = 4'b0100, //   Multiply 4 bit numbers a and b.
+            DIV  = 4'b0101, //   Divide a by b.
+            SHR  = 4'b0110, //   Shift a to left side by 1 bit.
+            SHL  = 4'b0111, //   Shift a to right by 1 bit.
+            AND  = 4'b1000, //   Logical AND
+            OR   = 4'b1001, //   Logical OR
+            INV  = 4'b1010, //   Compement
+            NAND = 4'b1011, //   Logical NAND
+            NOR  = 4'b1100, //   Logical NOR
+            XOR  = 4'b1101, //   Logical EXOR
+            XNOR = 4'b1110, //   Logical EXNOR
+            BUF  = 4'b1111; //   Buffer
 
   reg [(4*8)-1:0] string_cmd;
 
-// Step 1. Instantiate the design ALU
+//  Instantiation of ALU  design
    alu A1(a,b,command,enable,y);
 
 
 
 
-// Step 2. Write a task named "initialize" to initialize the inputs of DUT
+// task  "initialize" to initialize the inputs of DUT
    task initialize;
    begin
         {a,b,command,enable}=0;
    end
    endtask
 
-
-
-// Step 3. Understand the complete test bench and various tasks defined below.
 
   task en_oe(input i);
   begin
